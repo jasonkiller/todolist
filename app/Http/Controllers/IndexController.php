@@ -17,6 +17,10 @@ class IndexController extends Controller
     	return view('index', ['todo' => $todo, 'finish' => $finish]);
     }
 
+    /**
+     * [add description]
+     * @param Request $request [description]
+     */
     public function add(Request $request)
     {
     	$title = $request->input('title');
@@ -38,7 +42,12 @@ class IndexController extends Controller
     	return $result;
     }
 
-    public function edit($data)
+    /**
+     * [edit description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function edit(Request $request)
     {
     	$id = $data['id'];
     	$data = $data['data'];
@@ -55,7 +64,12 @@ class IndexController extends Controller
     	return $result;
     }
 
-    public function del($id)
+    /**
+     * [del description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function del(Request $request)
     {
     	$res = \DB::table('todo')->where('id', $id)->update(['delete_at', time()]);
     	if($res){
@@ -68,6 +82,29 @@ class IndexController extends Controller
 
     	return $result;
     }
+
+    /**
+     * [doFinish description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function doFinish(Request $request)
+    {
+    	$id = $request->input('id');
+    	$res = \DB::table('todo')->where('id', $id)->update('finish_at', time());
+
+    	if($res){
+    		$result['message'] = 'ok';
+    		$result['status_code'] = 200;
+    	}else{
+    		$result['message'] = 'error';
+    		$result['status_code'] = 201;
+    	}
+
+    	return $result;
+    }
+
+
 
 
 }
