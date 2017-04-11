@@ -12,7 +12,7 @@ class IndexController extends Controller
     public function index()
     {
     	$todo = \DB::table('todo')->where('finish_at', 0)->where('delete_at', 0)->get();
-    	$finish = \DB::table('todo')->where('finish_at', '!=', 0)->where('delete_at', '!=', 0)->get();
+    	$finish = \DB::table('todo')->where('finish_at', '!=', 0)->where('delete_at', '=', 0)->get();
 
     	return view('index', ['todo' => $todo, 'finish' => $finish]);
     }
@@ -25,9 +25,11 @@ class IndexController extends Controller
     {
     	$title = $request->input('title');
     	$description = $request->input('description');
+    	$time = time();
     	$data = [];
     	$data['title'] = $title;
     	$data['description'] = $description;
+    	$data['create_at'] = $time;
 
     	$res = \DB::table('todo')->insert($data);
 
@@ -49,8 +51,8 @@ class IndexController extends Controller
      */
     public function edit(Request $request)
     {
-    	$id = $data['id'];
-    	$data = $data['data'];
+    	$id = $request->input('id');
+    	$data = $request->input('data');
 
     	$res = \DB::table('todo')->where('id', $id)->updata($data);
     	if($res){
@@ -71,7 +73,9 @@ class IndexController extends Controller
      */
     public function del(Request $request)
     {
-    	$res = \DB::table('todo')->where('id', $id)->update(['delete_at', time()]);
+    	$id = $request->input('id');
+
+    	$res = \DB::table('todo')->where('id', $id)->update(['delete_at' => time()]);
     	if($res){
     		$result['message'] = 'ok';
     		$result['status_code'] = 200;
@@ -91,7 +95,7 @@ class IndexController extends Controller
     public function doFinish(Request $request)
     {
     	$id = $request->input('id');
-    	$res = \DB::table('todo')->where('id', $id)->update('finish_at', time());
+    	$res = \DB::table('todo')->where('id', $id)->update(['finish_at' => time()]);
 
     	if($res){
     		$result['message'] = 'ok';
