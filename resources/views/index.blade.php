@@ -75,6 +75,7 @@
 	DESCRIPTION
 	<input type="text" name="description" id="description"><br>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	<input type="hidden" name="taskId" id="taskId" value="">
 
 	<input type="submit" value="submit" id="submit">
 </form>

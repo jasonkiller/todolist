@@ -24,15 +24,19 @@ class IndexController extends Controller
      */
     public function add(Request $request)
     {
+        $id = $request->input('id');
     	$title = $request->input('title');
     	$description = $request->input('description');
     	$time = time();
     	$data = [];
     	$data['title'] = $title;
     	$data['description'] = $description;
-    	$data['create_at'] = $time;
-
-    	$res = \DB::table('todo')->insert($data);
+        $data['create_at'] = $time;
+    	if($id){
+            $res = \DB::table('todo')->where('id', $id)->update($data);
+        }else{
+            $res = \DB::table('todo')->insert($data);
+        }
 
     	if($res){
     		$result['message'] = 'ok';
@@ -41,7 +45,6 @@ class IndexController extends Controller
     		$result['message'] = 'error';
     		$result['status_code'] = 201;
     	}
-
     	return $result;
     }
 
@@ -53,17 +56,16 @@ class IndexController extends Controller
     public function edit(Request $request)
     {
     	$id = $request->input('id');
-    	$data = $request->input('data');
 
-    	$res = \DB::table('todo')->where('id', $id)->updata($data);
+    	$res = \DB::table('todo')->where('id', $id)->get();
     	if($res){
     		$result['message'] = 'ok';
     		$result['status_code'] = 200;
+    		$result['data'] = $res;
     	}else{
     		$result['message'] = 'error';
     		$result['status_code'] = 201;
     	}
-
     	return $result;
     }
 
@@ -75,8 +77,12 @@ class IndexController extends Controller
     public function del(Request $request)
     {
     	$id = $request->input('id');
-
-    	$res = \DB::table('todo')->where('id', $id)->update(['delete_at' => time()]);
+    	$type = $request->input('type');
+        if($type == 'del'){
+            $res = \DB::table('todo')->where('id', $id)->update(['delete_at' => time()]);
+        }else{
+            $res = \DB::table('todo')->where('id', $id)->update(['delete_at' => '']);
+        }
     	if($res){
     		$result['message'] = 'ok';
     		$result['status_code'] = 200;
@@ -84,7 +90,6 @@ class IndexController extends Controller
     		$result['message'] = 'error';
     		$result['status_code'] = 201;
     	}
-
     	return $result;
     }
 
@@ -112,8 +117,5 @@ class IndexController extends Controller
     	}
     	return $result;
     }
-
-
-
 
 }
