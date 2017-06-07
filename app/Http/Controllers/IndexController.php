@@ -11,10 +11,11 @@ class IndexController extends Controller
     //
     public function index()
     {
-    	$todo = \DB::table('todo')->where('finish_at', 0)->where('delete_at', 0)->get();
+    	$todo = \DB::table('todo')->where('finish_at', 0)->where('delete_at', 0)->orderBy('create_at','desc')->get();
     	$finish = \DB::table('todo')->where('finish_at', '!=', 0)->where('delete_at', '=', 0)->get();
+    	$delete = \DB::table('todo')->where('delete_at', '!=', 0)->get();
 
-    	return view('index', ['todo' => $todo, 'finish' => $finish]);
+    	return view('index', ['todo' => $todo, 'finish' => $finish, 'delete' => $delete]);
     }
 
     /**
@@ -95,7 +96,12 @@ class IndexController extends Controller
     public function doFinish(Request $request)
     {
     	$id = $request->input('id');
-    	$res = \DB::table('todo')->where('id', $id)->update(['finish_at' => time()]);
+    	$type = $request->input('type');
+    	if($type == 'finish'){
+            $res = \DB::table('todo')->where('id', $id)->update(['finish_at' => time()]);
+        }else{
+            $res = \DB::table('todo')->where('id', $id)->update(['finish_at' => '']);
+        }
 
     	if($res){
     		$result['message'] = 'ok';
@@ -104,7 +110,6 @@ class IndexController extends Controller
     		$result['message'] = 'error';
     		$result['status_code'] = 201;
     	}
-
     	return $result;
     }
 

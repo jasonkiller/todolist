@@ -8,43 +8,79 @@
 
 
 @section('content')
-{{ dump($todo) }}
 <div>
-	<h2>todo</h2>
-	<ul class="todul">
-	@foreach($todo as $tod)
-		<li data-id="{{ $tod->id }}">
-			<div>&nbsp;&nbsp;{{ $tod->title }}</div>
-			<div>&nbsp;&nbsp;{{ $tod->description }}</div>&nbsp;&nbsp;&nbsp;&nbsp;{{ date('Y-m-d H:i:s', $tod->create_at) }}| <button data-id="{{ $tod->id }}">edit</button>&nbsp;&nbsp;<button data-id="{{ $tod->id }}">del</button>&nbsp;&nbsp;<button data-id="{{ $tod->id }}" id="finish">finish</button></li>
-			<div style="clear:both"></div>
-	@endforeach
-	</ul>
-	<div style="clear:both"></div>
-	<h2>finished</h2>
-	<ul class="finul">
-	@foreach($finish as $fin)
-		<li>
-			<div>&nbsp;&nbsp;{{ $fin->title }}</div>
-			<div>&nbsp;&nbsp;{{ $fin->description }} &nbsp;&nbsp;</div>
-			<div>&nbsp;&nbsp;{{ $fin->create_at }}</div>| &nbsp;&nbsp;<button>del</button>&nbsp;&nbsp;FINISH_AT : {{ date('Y-m-d H:i:s', $fin->finish_at) }}</li>
-		<div style="clear:both"></div>
-	@endforeach
-	</ul>
+	<h2>TODO</h2>
+	<table>
+		<tr>
+			<th>TITLE</th>
+			<th>DESCRIPTION</th>
+			<th>CREATE_AT</th>
+			<th>HANDLE</th>
+		</tr>
+		@foreach($todo as $tod)
+			<tr>
+				<td>{{ $tod->title }}</td>
+				<td>{{ $tod->description }}</td>
+				<td>{{ date('Y-m-d H:i:s', $tod->create_at) }}</td>
+				<td>
+					<button data-id="{{ $tod->id }}" class="edit">edit</button>
+					<button data-id="{{ $tod->id }}" class="del">del</button>
+					<button data-id="{{ $tod->id }}" class="finish">finish</button>
+				</td>
+			</tr>
+		@endforeach
+	</table>
+	<h2>FINISHED</h2>
+	<table>
+        <tr>
+			<th>TITLE</th>
+			<th>DESCRIPTION</th>
+			<th>FINISH_AT</th>
+			<th>HANDLE</th>
+		</tr>
+		@foreach($finish as $fin)
+		<tr>
+            <td>{{ $fin->title }}</td>
+			<td>{{ $fin->description }}</td>
+			<td>{{ date('Y-m-d H:i:s', $fin->finish_at) }}</td>
+            <td>
+				<button data-id="{{ $fin->id }}" class="del">del</button>
+				<button data-id="{{ $fin->id }}" class="unFinish">unFinish</button>
+			</td>
+		</tr>
+        @endforeach
+	</table>
+    <h2>DELETED</h2>
+	<table>
+		<tr>
+            <th>TITLE</th>
+            <th>DESCRIPTION</th>
+            <th>DELETE_AT</th>
+			<th>HANDLE</th>
+        </tr>
+		@foreach($delete as $del)
+        <tr>
+            <td>{{ $del->title }}</td>
+            <td>{{ $del->description }}</td>
+            <td>{{ date('Y-m-d H:i:s', $del->delete_at) }}</td>
+			<td><button data-id="{{ $del->id }}" class="unDel">undel</button></td>
+        </tr>
+        @endforeach
+	</table>
 </div>
-
-
-
+<h2>ADD NEW TASK</h2>
 <form action="" method="post" target="iframe">
-	<input type="text" name="title" id="title">
-	<input type="text" name="description" id="description">
+	TITLE
+	<input type="text" name="title" id="title"><br>
+	DESCRIPTION
+	<input type="text" name="description" id="description"><br>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-	<input type="submit" name="" id="submit">
+	<input type="submit" value="submit" id="submit">
 </form>
 <iframe name="iframe" style="display: none;"></iframe>
 
 @endsection
-
 
 
 @section('js')
