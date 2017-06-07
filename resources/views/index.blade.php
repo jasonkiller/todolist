@@ -1,37 +1,89 @@
 @extends('main')
 
+
+@section('css')
+@parent
+<link href="/css/index.css" rel="stylesheet" type="text/css" />
+@endsection
+
+
 @section('content')
-{{ dump($todo) }}
 <div>
-	<h2>todo</h2>
-	<ul>
-	@foreach($todo as $tod)
-		<li data-id="{{ $tod->id }}"><span>&nbsp;&nbsp;{{ $tod->title }}</span>&nbsp;&nbsp;{{ $tod->description }} &nbsp;&nbsp;&nbsp;&nbsp;{{ $tod->create_at }}| <a href="#">edit</a>&nbsp;&nbsp;<a href="#">del</a>&nbsp;&nbsp;<button id="finish">finish</button></li>
-	@endforeach
-	</ul>
-	<h2>finished</h2>
-	<ul>
-	@foreach($finish as $fin)
-		<li><span>&nbsp;&nbsp;{{ $fin->title }}</span>&nbsp;&nbsp;{{ $fin->description }} &nbsp;&nbsp;&nbsp;&nbsp;{{ $fin->create_at }}| &nbsp;&nbsp;<a href="#">del</a>&nbsp;&nbsp;</li>
-	@endforeach
-	</ul>
+	<h2>TODO</h2>
+	<table>
+		<tr>
+			<th>TITLE</th>
+			<th>DESCRIPTION</th>
+			<th>CREATE_AT</th>
+			<th>HANDLE</th>
+		</tr>
+		@foreach($todo as $tod)
+			<tr>
+				<td>{{ $tod->title }}</td>
+				<td>{{ $tod->description }}</td>
+				<td>{{ date('Y-m-d H:i:s', $tod->create_at) }}</td>
+				<td>
+					<button data-id="{{ $tod->id }}" class="edit">edit</button>
+					<button data-id="{{ $tod->id }}" class="del">del</button>
+					<button data-id="{{ $tod->id }}" class="finish">finish</button>
+				</td>
+			</tr>
+		@endforeach
+	</table>
+	<h2>FINISHED</h2>
+	<table>
+        <tr>
+			<th>TITLE</th>
+			<th>DESCRIPTION</th>
+			<th>FINISH_AT</th>
+			<th>HANDLE</th>
+		</tr>
+		@foreach($finish as $fin)
+		<tr>
+            <td>{{ $fin->title }}</td>
+			<td>{{ $fin->description }}</td>
+			<td>{{ date('Y-m-d H:i:s', $fin->finish_at) }}</td>
+            <td>
+				<button data-id="{{ $fin->id }}" class="del">del</button>
+				<button data-id="{{ $fin->id }}" class="unFinish">unFinish</button>
+			</td>
+		</tr>
+        @endforeach
+	</table>
+    <h2>DELETED</h2>
+	<table>
+		<tr>
+            <th>TITLE</th>
+            <th>DESCRIPTION</th>
+            <th>DELETE_AT</th>
+			<th>HANDLE</th>
+        </tr>
+		@foreach($delete as $del)
+        <tr>
+            <td>{{ $del->title }}</td>
+            <td>{{ $del->description }}</td>
+            <td>{{ date('Y-m-d H:i:s', $del->delete_at) }}</td>
+			<td><button data-id="{{ $del->id }}" class="unDel">undel</button></td>
+        </tr>
+        @endforeach
+	</table>
 </div>
-
-
-
-<form action="/add" method="post" target="iframe">
-	<input type="text" name="title">
-	<input type="text" name="description">
+<h2>ADD NEW TASK</h2>
+<form action="" method="post" target="iframe">
+	TITLE
+	<input type="text" name="title" id="title"><br>
+	DESCRIPTION
+	<input type="text" name="description" id="description"><br>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-	<input type="submit" name="">
+	<input type="submit" value="submit" id="submit">
 </form>
 <iframe name="iframe" style="display: none;"></iframe>
 
 @endsection
 
 
-
 @section('js')
+@parent
 <script type="text/javascript" src="/js/index.js"></script>
 @endsection

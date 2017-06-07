@@ -17,7 +17,11 @@
 
 Route::get('/', 'IndexController@index');
 Route::get('/index', 'IndexController@index');
+// add task
 Route::post('/add', 'IndexController@add');
+// del task
 Route::get('/del', 'IndexController@del');
+// edit task
 Route::post('/edit', 'IndexController@edit');
+// finish task
 Route::post('/doFinish', 'IndexController@doFinish');

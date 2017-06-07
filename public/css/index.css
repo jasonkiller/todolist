@@ -1,0 +1,11 @@
+.todul > li > div{
+    width: 100px;
+    height: 40px;
+    float: left;
+}
+
+.finul > li > div{
+    width: 100px;
+    height: 40px;
+    float: left;	
+}
