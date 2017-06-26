@@ -63,7 +63,10 @@
             <td>{{ $del->title }}</td>
             <td>{{ $del->description }}</td>
             <td>{{ date('Y-m-d H:i:s', $del->delete_at) }}</td>
-			<td><button data-id="{{ $del->id }}" class="unDel">undel</button></td>
+			<td>
+				<button data-id="{{ $del->id }}" class="unDel">undel</button>
+				<button data-id="{{ $del->id }}" class="clrDel">clear</button>
+			</td>
         </tr>
         @endforeach
 	</table>

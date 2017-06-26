@@ -94,6 +94,24 @@ class IndexController extends Controller
     }
 
     /**
+     * [clrDel description]
+     * @param  Request    $request
+     * @return [type]              [description]
+     */
+    public function clrDel(Request $request)
+    {
+        $id = $request->input('id');
+        $res = \DB::table('todo')->where('id', $id)->destory();
+        if($res){
+            $result['message'] = 'ok';
+            $result['status_code'] = 200;
+        }else{
+            $result['message'] = 'error';
+            $result['status_code'] = 201;
+        }
+    }
+
+    /**
      * [doFinish description]
      * @param  Request $request [description]
      * @return [type]           [description]
