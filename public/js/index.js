@@ -73,9 +73,9 @@
         var data = {};
         data.id = id;
         data.type = type;
-        var request = ajaxRequest('get', 'clrDel', data);
+        var request = ajaxRequest('get', 'del', data);
         if(request.status_code == 200){
-            alert('已清除');
+            alert('已取消');
             location.reload();
         }else{
             alert('操作失败，请重试');
@@ -87,9 +87,9 @@
         var id = $(this).attr('data-id');
         var data = {};
         data.id = id;
-        var request = ajaxRequest('get', 'del', data);
+        var request = ajaxRequest('get', 'clrDel', data);
         if(request.status_code == 200){
-            alert('已取消');
+            alert('已清除');
             location.reload();
         }else{
             alert('操作失败，请重试');
