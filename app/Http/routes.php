@@ -21,6 +21,8 @@ Route::get('/index', 'IndexController@index');
 Route::post('/add', 'IndexController@add');
 // del task
 Route::get('/del', 'IndexController@del');
+// clear del task
+Route::get('/clrDel', 'IndexController@clrDel');
 // edit task
 Route::post('/edit', 'IndexController@edit');
 // finish task
