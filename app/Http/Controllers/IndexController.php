@@ -101,7 +101,7 @@ class IndexController extends Controller
     public function clrDel(Request $request)
     {
         $id = $request->input('id');
-        $res = \DB::table('todo')->where('id', $id)->destory();
+        $res = \DB::table('todo')->where('id', $id)->delete();
         if($res){
             $result['message'] = 'ok';
             $result['status_code'] = 200;
@@ -109,6 +109,7 @@ class IndexController extends Controller
             $result['message'] = 'error';
             $result['status_code'] = 201;
         }
+        return $result;
     }
 
     /**
