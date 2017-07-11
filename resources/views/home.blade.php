@@ -7,7 +7,7 @@
 <div>
    <h3>Contents</h3>
    <ul>
-      <a href="http://godsondaily.xyz:81"><li>81: todolist</li></a>
+      <a href="http://godsondaily.xyz:81/index"><li>81: todolist</li></a>
       <a href="http://godsondaily.xyz:82"><li>82: godsondaily.xyz</li></a>
       <a href="http://godsondaily.xyz:85"><li>85: october</li></a>
       <a href="http://godsondaily.xyz:86"><li>86: microweber</li></a>

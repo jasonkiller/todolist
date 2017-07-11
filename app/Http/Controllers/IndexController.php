@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class IndexController extends Controller {
 	//
 
-    public function home()
-    {
-        return view('home');
-    }
+	public function home() {
+		return view('home');
+	}
 
-    /**
-     * [index]
-     * @param Request $request [description]
-     */
-	public function index() {
+	/**
+	 * [index]
+	 * @param Request $request [description]
+	 */
+	public function index($locale = 'zh') {
+		App::setLocale($locale);
 		$todo = \DB::table('todo')->where('finish_at', 0)->where('delete_at', 0)->orderBy('create_at', 'desc')->get();
 		$finish = \DB::table('todo')->where('finish_at', '!=', 0)->where('delete_at', '=', 0)->get();
 		$delete = \DB::table('todo')->where('delete_at', '!=', 0)->get();

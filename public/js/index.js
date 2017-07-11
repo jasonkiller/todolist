@@ -9,7 +9,7 @@ $(function(){
 
 		var request = ajaxRequest('post', 'doFinish', data);
 		if(request.status_code == 200){
-			alert('已完成');
+			// alert('已完成');
 			location.reload();
 		}
 	});
@@ -23,7 +23,7 @@ $(function(){
 
         var request = ajaxRequest('post', 'doFinish', data);
         if(request.status_code == 200){
-            alert('已取消');
+            // alert('已取消');
             location.reload();
         }
     });
@@ -60,7 +60,7 @@ $(function(){
         data.type = type;
         var request = ajaxRequest('get', 'del', data);
         if(request.status_code == 200){
-            alert('已删除');
+            // alert('已删除');
             location.reload();
         }else{
             alert('删除失败，请重试');
@@ -75,7 +75,7 @@ $(function(){
         data.type = type;
         var request = ajaxRequest('get', 'del', data);
         if(request.status_code == 200){
-            alert('已取消');
+            // alert('已取消');
             location.reload();
         }else{
             alert('操作失败，请重试');
@@ -89,7 +89,7 @@ $(function(){
         data.id = id;
         var request = ajaxRequest('get', 'clrDel', data);
         if(request.status_code == 200){
-            alert('已清除');
+            // alert('已清除');
             location.reload();
         }else{
             alert('操作失败，请重试');
