@@ -6,6 +6,16 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller {
 	//
+
+    public function home()
+    {
+        return view('home');
+    }
+
+    /**
+     * [index]
+     * @param Request $request [description]
+     */
 	public function index() {
 		$todo = \DB::table('todo')->where('finish_at', 0)->where('delete_at', 0)->orderBy('create_at', 'desc')->get();
 		$finish = \DB::table('todo')->where('finish_at', '!=', 0)->where('delete_at', '=', 0)->get();

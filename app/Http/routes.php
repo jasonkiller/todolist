@@ -14,8 +14,9 @@
 // Route::get('/', function () {
     // return view('welcome');
 // });
-
-Route::get('/', 'IndexController@index');
+// home content
+Route::get('/', 'IndexController@home');
+// todolist
 Route::get('/index', 'IndexController@index');
 // add task
 Route::post('/add', 'IndexController@add');
