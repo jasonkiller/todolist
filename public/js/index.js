@@ -7,8 +7,8 @@ $(function(){
 		data.id = id;
 		data.type = type;
 
-		var request = ajaxRequest('post', 'doFinish', data);
-		if(request.status_code == 200){
+		var request = ajaxRequest('post', '/doFinish', data);
+		if(request.status_code === 200){
 			// alert('已完成');
 			location.reload();
 		}
@@ -21,8 +21,8 @@ $(function(){
         data.id = id;
         data.type = type;
 
-        var request = ajaxRequest('post', 'doFinish', data);
-        if(request.status_code == 200){
+        var request = ajaxRequest('post', '/doFinish', data);
+        if(request.status_code === 200){
             // alert('已取消');
             location.reload();
         }
@@ -33,6 +33,10 @@ $(function(){
 		var title = $('#title').val();
 		var description = $('#description').val();
 		var id = $('#taskId').val();
+		if(title.length === 0 || description.length === 0){
+		    alert('请输入标题和描述');
+		    return false;
+        }
 		if(id){
 		    var text = '已编辑';
         }else{
@@ -42,8 +46,8 @@ $(function(){
 		data.title = title;
 		data.description = description;
 		data.id = id;
-		var request = ajaxRequest('post', 'add', data);
-		if(request.status_code == 200){
+		var request = ajaxRequest('post', '/add', data);
+		if(request.status_code === 200){
 			alert(text);
 			$('#title').val('');
             $('#description').val('');
@@ -58,8 +62,8 @@ $(function(){
         var data = {};
         data.id = id;
         data.type = type;
-        var request = ajaxRequest('get', 'del', data);
-        if(request.status_code == 200){
+        var request = ajaxRequest('get', '/del', data);
+        if(request.status_code === 200){
             // alert('已删除');
             location.reload();
         }else{
@@ -73,8 +77,8 @@ $(function(){
         var data = {};
         data.id = id;
         data.type = type;
-        var request = ajaxRequest('get', 'del', data);
-        if(request.status_code == 200){
+        var request = ajaxRequest('get', '/del', data);
+        if(request.status_code === 200){
             // alert('已取消');
             location.reload();
         }else{
@@ -87,8 +91,8 @@ $(function(){
         var id = $(this).attr('data-id');
         var data = {};
         data.id = id;
-        var request = ajaxRequest('get', 'clrDel', data);
-        if(request.status_code == 200){
+        var request = ajaxRequest('get', '/clrDel', data);
+        if(request.status_code === 200){
             // alert('已清除');
             location.reload();
         }else{
@@ -102,8 +106,8 @@ $(function(){
         var data = {};
         data.id = id;
 
-        var request = ajaxRequest('post', 'edit', data);
-        if(request.status_code == 200){
+        var request = ajaxRequest('post', '/edit', data);
+        if(request.status_code === 200){
             var title = request.data[0]['title'];
             var description = request.data[0]['description'];
             var id = request.data[0]['id'];

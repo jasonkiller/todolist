@@ -91,10 +91,10 @@
 </div>
 <h2>{{ trans('index.ANT') }}</h2>
 <form action="" method="post" target="iframe">
-	TITLE
-	<input type="text" name="title" id="title"><br>
-	DESCRIPTION
-	<input type="text" name="description" id="description"><br>
+	{{ trans('index.TITLE') }}
+	<input type="text" name="" id="title"><br>
+	{{ trans('index.DESCRIPTION') }}
+	<input type="text" name="" id="description"><br>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<input type="hidden" name="taskId" id="taskId" value="">
 
