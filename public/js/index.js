@@ -1,4 +1,4 @@
-(function(){
+$(function(){
 
     // dofinish task
 	$('.finish').on('click', function(){
@@ -53,7 +53,8 @@
 	});
 
 	// del task
-    $('.del').on('click', function () {
+    $('.del').on('click', function (e) {
+        console.log($(e));
         var id = $(this).attr('data-id'), type = 'del';
         var data = {};
         data.id = id;
@@ -113,5 +114,4 @@
         }
     })
 
-
-})();
+});
