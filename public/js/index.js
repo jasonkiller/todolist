@@ -53,8 +53,7 @@ $(function(){
 	});
 
 	// del task
-    $('.del').on('click', function (e) {
-        console.log($(e));
+    $('.del').on('click', function () {
         var id = $(this).attr('data-id'), type = 'del';
         var data = {};
         data.id = id;
