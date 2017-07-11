@@ -17,7 +17,7 @@
 // home content
 Route::get('/', 'IndexController@home');
 // todolist
-Route::get('/index/{locale?}', 'IndexController@index');
+Route::any('/index/{locale?}', 'IndexController@index');
 // add task
 Route::post('/add', 'IndexController@add');
 // del task
