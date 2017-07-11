@@ -9,15 +9,17 @@
 
 @section('content')
 <div>
-	<h2>TODO</h2>
+	<h2>{{ trans('index.TODO') }}</h2>
 	<table>
+		@if(!empty($todo))
 		<tr>
-			<th>TITLE</th>
-			<th>DESCRIPTION</th>
-			<th>CREATE_AT</th>
-			<th>HANDLE</th>
+			<th>{{ trans('index.TITLE') }}</th>
+			<th>{{ trans('index.DESCRIPTION') }}</th>
+			<th>{{ trans('index.CREATE_AT') }}</th>
+			<th>{{ trans('index.HANDLE') }}</th>
 		</tr>
-		@foreach($todo as $tod)
+		@endif
+		@forelse($todo as $tod)
 			<tr>
 				<td>{{ $tod->title }}</td>
 				<td>{{ $tod->description }}</td>
@@ -28,17 +30,23 @@
 					<button data-id="{{ $tod->id }}" class="finish">finish</button>
 				</td>
 			</tr>
-		@endforeach
+			@empty
+			<tr>
+				<td>暂无待办任务</td>
+			</tr>
+		@endforelse
 	</table>
-	<h2>FINISHED</h2>
+	<h2>{{ trans('index.FINISHED') }}</h2>
 	<table>
+		@if(!empty($finish))
         <tr>
-			<th>TITLE</th>
-			<th>DESCRIPTION</th>
-			<th>FINISH_AT</th>
-			<th>HANDLE</th>
+			<th>{{ trans('index.TITLE') }}</th>
+			<th>{{ trans('index.DESCRIPTION') }}</th>
+			<th>{{ trans('index.FINISH_AT') }}</th>
+			<th>{{ trans('index.HANDLE') }}</th>
 		</tr>
-		@foreach($finish as $fin)
+		@endif
+		@forelse($finish as $fin)
 		<tr>
             <td>{{ $fin->title }}</td>
 			<td>{{ $fin->description }}</td>
@@ -48,30 +56,40 @@
 				<button data-id="{{ $fin->id }}" class="unFinish">unFinish</button>
 			</td>
 		</tr>
-        @endforeach
+		@empty
+			<tr>
+				<td>暂无已完成任务</td>
+			</tr>
+        @endforelse
 	</table>
-    <h2>DELETED</h2>
+    <h2>{{ trans('index.DELETED') }}</h2>
 	<table>
+		@if(!empty($delete))
 		<tr>
-            <th>TITLE</th>
-            <th>DESCRIPTION</th>
-            <th>DELETE_AT</th>
-			<th>HANDLE</th>
+			<th>{{ trans('index.TITLE') }}</th>
+			<th>{{ trans('index.DESCRIPTION') }}</th>
+            <th>{{ trans('index.DELETE_AT') }}</th>
+			<th>{{ trans('index.HANDLE') }}</th>
         </tr>
-		@foreach($delete as $del)
+        @endif
+		@forelse($delete as $del)
         <tr>
             <td>{{ $del->title }}</td>
             <td>{{ $del->description }}</td>
             <td>{{ date('Y-m-d H:i:s', $del->delete_at) }}</td>
 			<td>
 				<button data-id="{{ $del->id }}" class="unDel">undel</button>
-				<button data-id="{{ $del->id }}" class="clrDel">clear</button>
+				<button data-id="{{ $del->id }}" class="clrDel" style="color: red;">clear</button>
 			</td>
         </tr>
-        @endforeach
+        @empty
+        	<tr>
+        		<td>暂无已删除任务</td>
+        	</tr>
+        @endforelse
 	</table>
 </div>
-<h2>ADD NEW TASK</h2>
+<h2>{{ trans('index.ANT') }}</h2>
 <form action="" method="post" target="iframe">
 	TITLE
 	<input type="text" name="title" id="title"><br>
@@ -80,7 +98,7 @@
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<input type="hidden" name="taskId" id="taskId" value="">
 
-	<input type="submit" value="submit" id="submit">
+	<input type="submit" value="{{ trans('index.SUBMIT') }}" id="submit">
 </form>
 <iframe name="iframe" style="display: none;"></iframe>
 
